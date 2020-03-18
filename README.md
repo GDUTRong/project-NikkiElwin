@@ -7,10 +7,10 @@ https://docs.qq.com/doc/DR2tFek1YdGpNSG9X
 
 #个人基本信息
 
-  - 班级：xx
-  - 姓名：xx
-  - 学号：xx
-  - 班内序号：xx
+  - 班级：2019级自动化8班
+  - 姓名：梁梓熙
+  - 学号：3119001152
+  - 班内序号：56
 
 
 #大作业题目  
@@ -29,4 +29,8 @@ https://docs.qq.com/doc/DR2tFek1YdGpNSG9X
 
 >如何插入图片<https://blog.csdn.net/itmyhome1990/article/details/48765703>
 
-XX
+![资源图](./Picture/资源图.png)
+
+![运行结果图](./Picture/运行结果图.png)
+
+![结果图](./Picture/结果图.png)

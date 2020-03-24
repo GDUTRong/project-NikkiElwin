@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.852
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Sign-inTableConversion", "Sign-inTableConversion\Sign-inTableConversion.pyproj", "{0025A798-2D1C-4FA8-B30F-E52778F8915F}"
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Sign_inTableConversion v2.5", "Sign_inTableConversion v2.5\Sign_inTableConversion v2.5.pyproj", "{9B515B56-DAD3-40C0-890B-1A7AD653386F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,13 +11,13 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0025A798-2D1C-4FA8-B30F-E52778F8915F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0025A798-2D1C-4FA8-B30F-E52778F8915F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B515B56-DAD3-40C0-890B-1A7AD653386F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B515B56-DAD3-40C0-890B-1A7AD653386F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {BEF28152-EA24-4873-9CC5-8F9F481B3A1D}
+		SolutionGuid = {51B3F64B-90A3-4115-BDC3-42A09D5569B1}
 	EndGlobalSection
 EndGlobal

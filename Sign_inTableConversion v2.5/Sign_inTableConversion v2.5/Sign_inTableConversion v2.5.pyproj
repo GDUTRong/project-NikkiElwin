@@ -2,15 +2,15 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>0025a798-2d1c-4fa8-b30f-e52778f8915f</ProjectGuid>
+    <ProjectGuid>9b515b56-dad3-40c0-890b-1a7ad653386f</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Sign_inTableConversion.py</StartupFile>
+    <StartupFile>Sign_inTableConversion_v2.5.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
-    <Name>Sign-inTableConversion</Name>
-    <RootNamespace>Sign-inTableConversion</RootNamespace>
+    <Name>Sign_inTableConversion v2.5</Name>
+    <RootNamespace>Sign_inTableConversion v2.5</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,9 +21,7 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Sign_inTableConversion.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Sign_inTableConversion_v2.5.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

@@ -83,12 +83,10 @@ class Conversion():
         """寻找一个学生的位置，返回列表，没有则返回None"""
         for i in range(self.targetSource.sheet_by_index(0).nrows):
 
-            if self.targetSource.sheet_by_index(0).cell_value(i,2) in name \
-                and self.targetSource.sheet_by_index(0).cell_value(i,2) != "":
+            if self.targetSource.sheet_by_index(0).cell_value(i,2) in name and self.targetSource.sheet_by_index(0).cell_value(i,2) != "":
                 return [i,2]
 
-            if self.targetSource.sheet_by_index(0).cell_value(i,7) in name \
-                and self.targetSource.sheet_by_index(0).cell_value(i,7) != "":
+            if self.targetSource.sheet_by_index(0).cell_value(i,7) in name and self.targetSource.sheet_by_index(0).cell_value(i,7) != "":
                 return [i,7]
         return None  
 

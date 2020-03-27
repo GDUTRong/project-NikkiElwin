@@ -12,8 +12,8 @@ class Conversion():
         self.wrong = 0 #记录错误学生
         self.marked = {}  #记录学生时间
 
-        self.source = xr.open_workbook(sourceName)
-        self.targetSource = xr.open_workbook(targetName,formatting_info=True)  #打开
+        self.source = xr.open_workbook(sourceName,logfile=open(os.devnull, 'w'))
+        self.targetSource = xr.open_workbook(targetName,formatting_info=True,logfile=open(os.devnull, 'w'))  #打开
         self.target = copy(self.targetSource)  #复制一个以供使用
 
     def targetSheet(self):
@@ -109,27 +109,46 @@ class Conversion():
         self.marked[str(temp[0]) + ',' + str(temp[1])] = time
 
 
-def getTargetName(sources: str) -> str:
+def getTargetName(sources: str):
     """获得对应的目标模板"""
     temp = xr.open_workbook(sources) #先打开资源文件
-    string = temp.sheet_by_index(0).cell_value(6,2)[:4]  #读取模板里面课程
+    string = temp.sheet_by_index(0).cell_value(6,2)  #读取模板里面课程
 
     for root, dirs, files in os.walk('templates'):   #在模板文件中查找
         if len(files) == 0:
             return None
 
+        ans = []
         for i in range(len(files)):
             #判断后缀为xls的
             if os.path.splitext(files[i])[1] == '.xls':
-                if string in files[i]:
-                    for j in range(i+1,len(files)):
-                        if string in files[j]:
-                            return None
-                    return files[i]
+                mes = os.path.splitext(files[i])[0].split(' ')  #把模板名分割
+                if mes[0] in string and mes[-1] in string:
+                    ans.append(files[i]) #匹配的情况都放进去
+                    
+        if not ans:  #没有匹配情况
+            return None
+        elif len(ans) == 1:  #唯一匹配，提高速度
+            return ans[0]
+        else:
+            return askTeacher(sources,ans)  #询问老师
 
-    for root, dirs, files in os.walk('templates'):   #找不到时，默认使用第一个
-        return files[0]
+def askTeacher(sources:str,ans:list):
+    """询问老师"""
+    print(sources + "检测到多个匹配模板情况！")
+    for i in range(len(ans)):
+        print(str(i) + '.' + ans[i])
 
+    while True:
+        num=None
+        try:
+            num=int(input("请输入选定模板的下标："))
+        except:
+            pass
+        if num in range(len(ans)):
+            return ans[num]
+        else:
+            print("输入错误!请检查您的输入情况！")
 
 def inputStudent(name:str,conversion: Conversion,mark: str,i):
     """完成输入"""
@@ -152,7 +171,7 @@ for root, dirs, files in os.walk('sources'):
             targetName = getTargetName('sources/' + file)  #得到对应的目标模板
 
             if targetName == None:
-                print("模板有重复！\n已结束录入文件" + file)
+                print("找不到模板文件！\n已结束录入文件" + file)
                 continue
 
             shutil.copyfile('sources/' + file,'achieve/' + file)  #复制文件

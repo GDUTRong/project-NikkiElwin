@@ -156,29 +156,6 @@ class Conversion():
         temp = self._finePos(name)   #找到学生位置
         self.marked[str(temp[0]) + ',' + str(temp[1])] = time
 
-def getFromExcel(sources:str):
-    """从课程中得到对应的目标模板"""
-    temp = xr.open_workbook(sources)
-    string = temp.sheet_by_index(0).cell_value(5,2)
-    for root, dirs, files in os.walk('templates'):   #在模板文件中查找
-        if len(files) == 0:
-            return None
-
-        ans = []
-        for i in range(len(files)):
-            #判断后缀为xls的
-            if os.path.splitext(files[i])[1] == '.xls':
-                mes = os.path.splitext(files[i])[0].split(' ')  #把模板名分割
-                if mes[0] in string and mes[-1] in string:
-                    ans.append(files[i]) #匹配的情况都放进去
-                    
-        if not ans:  #没有匹配情况
-            return None
-        elif len(ans) == 1:  #唯一匹配，提高速度
-            return ans[0]
-        else:
-            return askTeacher(sources,ans)  #询问老师
-
 def getTargetName(sources: str):
     """获得对应的目标模板"""
 
@@ -189,13 +166,18 @@ def getTargetName(sources: str):
         ans = []
         for i in range(len(files)):
             #判断后缀为xls的
-            if os.path.splitext(files[i])[1] == '.xls':
+            if os.path.splitext(files[i])[1] == '.xls' or os.path.splitext(files[i])[1] == '.xlsx':
                 mes = os.path.splitext(files[i])[0].split(' ')  #把模板名分割
                 if mes[0] in sources and mes[-1] in sources:
                     ans.append(files[i]) #匹配的情况都放进去
                     
         if not ans:  #没有匹配情况
-            return None
+            for i in range(len(files)):
+                if os.path.splitext(files[i])[1] == '.xls' or os.path.splitext(files[i])[1] == '.xlsx':
+                    ans.append(files[i])
+            if ans == []:
+                return None
+            return askTeacher(sources,ans)  #全部询问
         elif len(ans) == 1:  #唯一匹配，提高速度
             return ans[0]
         else:
@@ -203,9 +185,10 @@ def getTargetName(sources: str):
 
 def askTeacher(sources:str,ans:list):
     """询问老师"""
-    print(sources + "检测到多个匹配模板情况！")
+    print(sources + "无匹配或有多个匹配文件！")
     for i in range(len(ans)):
         print(str(i+1) + '.' + ans[i])
+    print(str(len(ans)+1) + '.' + '不录入文件')
 
     while True:
         num=None
@@ -213,8 +196,10 @@ def askTeacher(sources:str,ans:list):
             num=int(input("请输入选定模板的下标："))
         except:
             pass
-        if num in range(len(ans)+1):
+        if num in range(1,len(ans)+1):
             return ans[num-1]
+        elif num == len(ans)+1:
+            return None  #不录入文件
         else:
             print("输入错误!请检查您的输入情况！")
 
@@ -238,10 +223,8 @@ for root, dirs, files in os.walk('sources'):
 
             targetName = getTargetName('sources/' + file)  #得到对应的目标模板
             if targetName == None:
-                targetName = getFromExcel('sources/' + file)  #从Excel中得到对应的模板
-                if targetName == None:
-                    print("找不到模板文件！\n已结束录入文件" + file)
-                    continue
+                print("没有模板或选择不录入文件！\n已结束录入文件" + file)
+                continue
 
             shutil.copyfile('sources/' + file,'achieve/' + file)  #复制文件
             c = Conversion('sources/' + file,'templates/' + targetName)
